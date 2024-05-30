@@ -1,0 +1,45 @@
+//EXP3:
+//IMPLEMENTATION OF STACK USING ARRAY: 
+#include<bits/stdc++.h>
+using namespace std;
+#define max 100
+int top=-1;
+int stack1[max];
+int isfull(int size)
+{
+    if(top==size-1){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+void ispush(int size,int element){
+    if(!isfull(size))
+    {
+        top++;
+        stack1[top]=element;
+    }
+    else{
+        cout<<"Overflow";
+    }
+}
+void display()
+{
+    cout<<"Stack elements:\n";
+    if(top==-1)
+    cout<<"underflow";
+    else
+    for(int i=top;i>=0;i--){
+        cout<<stack1[i]<<endl;
+    }
+}
+int main(){
+    int n,num;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cin>>num;
+        ispush(n,num);
+    }
+    display();
+}

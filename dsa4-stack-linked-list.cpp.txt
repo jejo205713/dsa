@@ -1,0 +1,33 @@
+//EXP 4 
+// IMPLEMENTATION OF STACK USING LINKED LIST:
+#include<bits/stdc++.h>
+using namespace std;
+int top=-1;
+#define max 100
+int stack1 [max];
+void push(int x){
+    top++;
+    stack1[top]=x;
+}
+
+void display(){
+    cout<<"Stack elements\n";
+    for(int i=top;i>=0;i--)
+    {
+        cout<<stack1[i]<<"\n";
+    }
+}
+int main(){
+    int n;
+    char y;
+    while (true)
+    {
+        cin>>n;
+        push(n);
+        cin>>y;
+        if(y=='N'){
+            break;
+        }
+    }
+    display();
+}
