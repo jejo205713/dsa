@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int top = -1;
+char as[100];
+
+void push(char data) {
+    if (top < 99) { // Check for stack overflow
+        top++;
+        as[top] = data;
+    }
+}
+
+char pop() {
+    if (top >= 0) { // Check for underflow
+        return as[top--];
+    }
+    return '\0'; // Return null character if stack is empty
+}
+
+int isempty() {
+    return top == -1; // Return 1 if empty, 0 otherwise
+}
+
+int pri(char s) {
+    if (s == '^') {
+        return 3;
+    } else if (s == '*' || s == '/') {
+        return 2;
+    } else if (s == '+' || s == '-') {
+        return 1;
+    } else {
+        return -1; // For '('
+    }
+}
+
+void intopost(string st) {
+    for (int i = 0; i < st.length(); i++) {
+        char s = st[i];
+
+        // If the character is an operand (a-z or A-Z), print it
+        if (isalpha(s)) {
+            cout << s;
+        }
+        // If the character is '(', push it onto the stack
+        else if (s == '(') {
+            push(s);
+        }
+        // If the character is ')', pop until '(' is found
+        else if (s == ')') {
+            while (top != -1 && as[top] != '(') {
+                cout << pop();
+            }
+            pop(); // Remove the '(' from stack
+        }
+        // If the character is an operator, handle precedence
+        else {
+            while (top != -1 && pri(as[top]) >= pri(s)) {
+                cout << pop();
+            }
+            push(s);
+        }
+    }
+
+    // Pop remaining operators from the stack
+    while (!isempty()) {
+        cout << pop();
+    }
+    cout << endl;
+}
+
+int main() {
+    string s;
+    cout << "Enter infix expression: ";
+    getline(cin, s);
+    cout << "Postfix expression: ";
+    intopost(s);
+    return 0;
+}
